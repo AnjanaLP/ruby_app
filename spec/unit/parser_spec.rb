@@ -4,7 +4,6 @@ describe Parser do
   subject(:parser)    { described_class.new(file_path, view_class: view_class) }
   let(:view_class)    { double :view_class, new: view }
   let(:view)          { double :view }
-  let(:file)          { double :file }
   let(:file_path)     { "./spec/fixtures/files/test_webserver.log" }
 
   describe '#views' do
@@ -27,6 +26,13 @@ describe Parser do
     it 'adds the newly created view object to the views array' do
       parser.convert_file
       expect(parser.views.count).to eq 10
+    end
+  end
+
+  describe '#list_views' do
+    it 'returns a list of webpages with thier view count in descending view count order' do
+      allow(view).to receive(:url).and_return('/help', '/home', '/about', '/contact', '/home', '/home', '/home', '/about', '/about', '/contact')
+      expect(parser.list_views).to eq "/home 4 views\n/about 3 views\n/contact 2 views\n/help 1 views"
     end
   end
 end
