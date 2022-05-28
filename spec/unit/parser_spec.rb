@@ -6,26 +6,15 @@ describe Parser do
   let(:view)          { double :view }
   let(:file_path)     { "./spec/fixtures/files/test_webserver.log" }
 
-  describe '#views' do
-    it 'is initially empty' do
-      expect(parser.views).to be_empty
-    end
-  end
+  before(:each) { parser.convert_file }
 
   describe '#convert_file' do
     it 'creates a new view object for each line of the file' do
-      expect(view_class).to receive(:new).exactly(10).times
-      parser.convert_file
+      expect(view_class).to have_received(:new).exactly(10).times
     end
 
     it 'passes the url and ip address to the new view object' do
-      expect(view_class).to receive(:new).with("/contact", "184.123.665.067").twice
-      parser.convert_file
-    end
-
-    it 'adds the newly created view object to the views array' do
-      parser.convert_file
-      expect(parser.views.count).to eq 10
+      expect(view_class).to have_received(:new).with("/contact", "184.123.665.067").twice
     end
   end
 
