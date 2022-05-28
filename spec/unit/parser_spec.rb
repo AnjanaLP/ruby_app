@@ -24,7 +24,7 @@ describe Parser do
 
   describe '#list_all_views' do
     it 'returns a list of webpages with thier view count in descending view count order' do
-      urls = ['/help', '/home', '/about', '/contact', '/home', '/home', '/home', '/about', '/about', '/contact']
+      urls = %w[/help /home /about /contact /home /home /home /about /about /contact]
       allow(view).to receive(:url).and_return(*urls)
       parser.convert_file
       output = "All page views (descending):\n/home 4 views\n/about 3 views\n/contact 2 views\n/help 1 view\n\n"
@@ -34,8 +34,9 @@ describe Parser do
 
   describe '#list_unique_views' do
     it 'returns a list of webpages with unique view count' do
+      ip_addresses = %w[126.318.035.038 126.318.035.038 802.683.925.780 126.318.035.038 802.683.925.780]
       allow(view).to receive(:url).and_return('/help')
-      allow(view).to receive(:ip_address).and_return('1234', '1321', '1234', '1234', '1234')
+      allow(view).to receive(:ip_address).and_return(*ip_addresses)
       parser.convert_file
       output = "Unique page views (descending):\n/help 2 unique views"
       expect(parser.list_unique_views).to eq output
