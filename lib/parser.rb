@@ -7,7 +7,7 @@ class Parser
     @file_path = file_path
     @view_class = view_class
     @formatter = formatter
-    @views = []
+    @all_views = []
   end
 
   def convert_file
@@ -15,27 +15,27 @@ class Parser
   end
 
   def list_all_views
-    formatter.display_all(ordered_tallied_urls(views))
+    formatter.display_all(sorted_urls(all_views))
   end
 
   def list_unique_views
-    formatter.display_unique(ordered_tallied_urls(unique_views))
+    formatter.display_unique(sorted_urls(unique_views))
   end
 
   private
 
-  attr_reader :file_path, :view_class, :views, :formatter
+  attr_reader :file_path, :view_class, :formatter, :all_views
 
   def add_to_views(line)
     url, ip_address = line.split
-    views << view_class.new(url, ip_address)
+    all_views << view_class.new(url, ip_address)
   end
 
-  def ordered_tallied_urls(views)
+  def sorted_urls(views)
     views.map(&:url).tally.sort_by(&:last).reverse
   end
 
   def unique_views
-    views.uniq { |view| [ view.url, view.ip_address ] }
+    all_views.uniq { |view| [ view.url, view.ip_address ] }
   end
 end
