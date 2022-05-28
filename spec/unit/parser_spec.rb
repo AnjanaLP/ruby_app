@@ -31,8 +31,17 @@ describe Parser do
 
   describe '#list_views' do
     it 'returns a list of webpages with thier view count in descending view count order' do
-      allow(view).to receive(:url).and_return('/help', '/home', '/about', '/contact', '/home', '/home', '/home', '/about', '/about', '/contact')
+      urls = ['/help', '/home', '/about', '/contact', '/home', '/home', '/home', '/about', '/about', '/contact']
+      allow(view).to receive(:url).and_return(*urls)
       expect(parser.list_views).to eq "/home 4 views\n/about 3 views\n/contact 2 views\n/help 1 views"
+    end
+  end
+
+  describe '#list_unique_views' do
+    it 'returns a list of webpages with unique view count' do
+      allow(view).to receive(:url).and_return('/help')
+      allow(view).to receive(:ip_address).and_return('1234', '1321', '1234', '1234', '1234')
+      expect(parser.list_unique_views).to eq "/help 2 views"
     end
   end
 end
