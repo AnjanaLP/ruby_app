@@ -1,7 +1,7 @@
 # Ruby App
 
 An exercise to implement the requirements given below in order to test functionality,
-efficiency, readability and ability to use TDD and 00.
+efficiency, readability and ability to use TDD and OO.
 
 Unit tests include test doubles and method stubs to effectively isolate the single class
 being tested and feature tests check correct integration behaviour between the
@@ -12,10 +12,20 @@ ensure each class has a single responsibility and have injected dependencies and
 provided defaults where appropriate. The design ensures that the classes are open
 for extension but closed for modification.
 
+I feel that the design meets the specified requirements, however if I had more time,
+I would have considered extracting the file conversion into its own class. Although
+I have used a ruby method which is more memory efficient by reading the file
+line by line instead of loading them all at once, I should also deal with edge case
+scenarios that could arise such as blank lines in the file, more data that expected
+on each line, invalid data and if the file passed in as an argument is the correct
+file type for the program to work. 
+
 ## Requirements
 
 Write a ruby script that:
+
 a. Receives a log as argument (webserver.log is provided) e.g.: ./parser.rb webserver.log
+
 b. Returns the following:
 * list of webpages with most page views ordered from most pages views to less page views e.g.:
 /home 90 visits /index 80 visits etc...  
