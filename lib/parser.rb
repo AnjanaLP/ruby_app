@@ -16,11 +16,11 @@ class Parser
   end
 
   def list_all_views
-    formatter.display_all(view_manager.sort_all)
+    formatter.display_all(view_manager.sort_views)
   end
 
   def list_unique_views
-    formatter.display_unique(view_manager.sort_unique)
+    formatter.display_unique(view_manager.sort_views(:unique))
   end
 
   private

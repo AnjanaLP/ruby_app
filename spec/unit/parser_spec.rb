@@ -2,7 +2,7 @@ require 'parser'
 
 describe Parser do
   subject(:parser)    { described_class.new(file_path, view_manager: view_manager, formatter: formatter) }
-  let(:view_manager)  { double :view_manager, sort_all: [['/home', 2]], sort_unique: [['/home', 1]]  }
+  let(:view_manager)  { double :view_manager, sort_views: [['/home', 2]] }
   let(:formatter)     { double :formatter }
   let(:file_path)     { "./spec/fixtures/files/test_webserver.log" }
 
@@ -27,6 +27,7 @@ describe Parser do
 
   describe '#list_unique_views' do
     it 'calls display_unique on the formatter instance and passes it the object from calling sort_unique on the view_manager instance' do
+      allow(view_manager).to receive(:sort_views).with(:unique).and_return([['/home', 1]])
       expect(formatter).to receive(:display_unique).with([['/home', 1]])
       parser.list_unique_views
     end

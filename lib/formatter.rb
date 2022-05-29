@@ -11,13 +11,13 @@ class Formatter
 
   private
 
-  def header(view_type)
-    "#{view_type} page views (descending):\n"
+  def header(type)
+    "#{type} page views (descending):\n"
   end
 
-  def display(views, view_type = nil)
+  def display(views, type = nil)
     views.map do |view|
-      view[1] != 1 ? "#{view[0]} #{view[1]} #{view_type}views" : "#{view[0]} #{view[1]} #{view_type}view"
+      view[1] != 1 ? "#{view[0]} #{view[1]} #{type}views" : "#{view[0]} #{view[1]} #{type}view"
     end.join("\n")
   end
 end

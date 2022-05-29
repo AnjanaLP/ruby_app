@@ -10,12 +10,8 @@ class ViewManager
     all_views << view_class.new(url, ip_address)
   end
 
-  def sort_all
-    descend_order(tally_urls(all_views))
-  end
-
-  def sort_unique
-    descend_order(tally_urls(unique_views))
+  def sort_views(type = nil)
+    type ? descend_order(tally_urls(unique_views)) : descend_order(tally_urls(all_views))
   end
 
   private
