@@ -27,18 +27,19 @@ describe Parser do
       urls = %w[/help /home /about /contact /home /home /home /about /about /contact]
       allow(view).to receive(:url).and_return(*urls)
       parser.convert_file
-      output = "All page views (descending):\n/home 4 views\n/about 3 views\n/contact 2 views\n/help 1 view\n\n"
+      output = "All page views (descending):\n/home 4 views\n/about 3 views\n/contact 2 views\n/help 1 view" + Formatter::DIVIDER
       expect(parser.list_all_views).to eq output
     end
   end
 
   describe '#list_unique_views' do
     it 'returns a list of webpages with unique view count' do
-      ip_addresses = %w[126.318.035.038 126.318.035.038 802.683.925.780 126.318.035.038 802.683.925.780]
+      ip_1, ip_2, ip_3 = %w[126.318.035.038 184.123.665.067 802.683.925.780]
+      ip_addresses = [ip_1, ip_2, ip_3, ip_1, ip_3]
       allow(view).to receive(:url).and_return('/help')
       allow(view).to receive(:ip_address).and_return(*ip_addresses)
       parser.convert_file
-      output = "Unique page views (descending):\n/help 2 unique views"
+      output = "Unique page views (descending):\n/help 3 unique views"
       expect(parser.list_unique_views).to eq output
     end
   end

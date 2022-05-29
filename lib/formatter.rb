@@ -1,8 +1,8 @@
 class Formatter
-  BLANK_SPACE = "\n\n"
+  DIVIDER = "\n---------------------------------\n"
 
   def display_all(views)
-    header("All") + display(views) + BLANK_SPACE
+    header("All") + display(views) + DIVIDER
   end
 
   def display_unique(views)
