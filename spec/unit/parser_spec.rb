@@ -19,14 +19,14 @@ describe Parser do
   end
 
   describe '#list_all_views' do
-    it 'calls display_all on the formatter instance and passes it the object from calling sort_all on the view_manager instance' do
+    it 'calls display_all on the formatter instance and passes it all the sorted views' do
       expect(formatter).to receive(:display_all).with([['/home', 2]])
       parser.list_all_views
     end
   end
 
   describe '#list_unique_views' do
-    it 'calls display_unique on the formatter instance and passes it the object from calling sort_unique on the view_manager instance' do
+    it 'calls display_unique on the formatter instance and passes it the unique sorted views' do
       allow(view_manager).to receive(:sort_views).with(:unique).and_return([['/home', 1]])
       expect(formatter).to receive(:display_unique).with([['/home', 1]])
       parser.list_unique_views
