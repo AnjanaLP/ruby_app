@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+require './lib/parser'
+
+file_path = ARGV.first
+
+if file_path.nil?
+  puts "Please add the file path as an argument eg bin/parser <file_you_want_to_use>"
+else
+  parser = Parser.new(file_path)
+  parser.convert_file
+  puts parser.list_all_views
+  puts parser.list_unique_views
+end
