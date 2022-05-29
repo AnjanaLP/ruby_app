@@ -1,40 +1,28 @@
-require_relative 'view'
+require_relative 'view_manager'
 require_relative 'formatter'
 
 class Parser
-  def initialize(file_path, view_class: View, formatter: Formatter.new)
+  def initialize(file_path, view_manager: ViewManager.new, formatter: Formatter.new)
     @file_path = file_path
-    @view_class = view_class
+    @view_manager = view_manager
     @formatter = formatter
-    @all_views = []
   end
 
   def convert_file
-    File.foreach(file_path) { |line| add_to_all_views(line) }
+    File.foreach(file_path) do |line|
+      url, ip_address = line.split
+      view_manager.add_view(url, ip_address)
+    end
   end
 
   def list_all_views
-    formatter.display_all(sorted_views(all_views))
+    formatter.display_all(view_manager.sort_all)
   end
 
   def list_unique_views
-    formatter.display_unique(sorted_views(unique_views))
+    formatter.display_unique(view_manager.sort_unique)
   end
 
   private
-
-  attr_reader :file_path, :view_class, :formatter, :all_views
-
-  def add_to_all_views(line)
-    url, ip_address = line.split
-    all_views << view_class.new(url, ip_address)
-  end
-
-  def sorted_views(views)
-    views.map(&:url).tally.sort_by(&:last).reverse
-  end
-
-  def unique_views
-    all_views.uniq { |view| [ view.url, view.ip_address ] }
-  end
+  attr_reader :file_path, :view_manager, :formatter
 end
