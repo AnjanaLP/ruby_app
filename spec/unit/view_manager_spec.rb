@@ -15,7 +15,6 @@ describe ViewManager do
   let(:url)               { "/home" }
   let(:url_1)             { "/about" }
 
-
   describe '#add_view' do
     it 'creates a new view instance and passes it a url and ip address' do
       expect(view_class).to receive(:new).with(url, ip)
