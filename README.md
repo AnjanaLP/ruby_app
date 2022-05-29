@@ -8,9 +8,9 @@ being tested and feature tests check correct integration behaviour between the
 classes. Test coverage is 100%.
 
 I have created four separate classes, Parser, View, ViewManager and Formatter to
-ensure each class has a single responsibility and have injected dependencies and
-provided defaults where appropriate. The design ensures that the classes are open
-for extension but closed for modification.
+ensure each class has a single responsibility. I have injected dependencies and
+provided defaults where appropriate to ensure that the classes are open for extension
+but closed for modification.
 
 I feel that the design meets the specified requirements, however if I had more time
 I would have considered extracting the file conversion into its own class. Although
